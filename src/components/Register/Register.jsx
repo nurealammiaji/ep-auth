@@ -1,6 +1,15 @@
 
 
 const Register = () => {
+
+    const handleEmail = (event) => {
+        console.log(event.target.value);
+    }
+
+    const handlePassword = (event) => {
+        console.log(event.target.value);
+    }
+
     return (
         <div>
             <br /><br />
@@ -11,7 +20,7 @@ const Register = () => {
                 <br />
                 <input type="email" name="email" id="email" placeholder="Type Your Email" />
                 <br />
-                <input type="password" name="password" id="password" placeholder="Type Your Password" />
+                <input onBlur={handlePassword} type="password" name="password" id="password" placeholder="Type Your Password" />
                 <br />
                 <button className="font-semibold text-white bg-green-600" type="submit">Register</button>
             </form>
