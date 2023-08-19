@@ -1,14 +1,27 @@
+import { useRef, useState } from "react";
 
 
 const Register = () => {
 
-    const handleEmail = (event) => {
-        console.log(event.target.value);
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const inputRef = useRef(null);
+    const handleUseRef = () => {
+        setName(inputRef.current.value);
     }
+    console.log(name);
+
+    const handleEmail = (event) => {
+        setEmail(event.target.value);
+    }
+    console.log(email);
 
     const handlePassword = (event) => {
-        console.log(event.target.value);
+        setPassword(event.target.value);
     }
+    console.log(password);
 
     return (
         <div>
@@ -16,9 +29,9 @@ const Register = () => {
             <h3 className="text-2xl">Register</h3>
             <br />
             <form className="[&>*]:m-1 [&>*]:rounded-2xl [&>*]:border [&>*]:px-2 [&>*]:py-1 bg-green-100 w-6/12 mx-auto p-5 rounded-2xl">
-                <input type="text" name="name" id="name" placeholder="Type Your Name" />
+                <input onBlur={handleUseRef} ref={inputRef} type="text" name="name" id="name" placeholder="Type Your Name" />
                 <br />
-                <input type="email" name="email" id="email" placeholder="Type Your Email" />
+                <input onChange={handleEmail} type="email" name="email" id="email" placeholder="Type Your Email" />
                 <br />
                 <input onBlur={handlePassword} type="password" name="password" id="password" placeholder="Type Your Password" />
                 <br />
