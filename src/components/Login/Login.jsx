@@ -1,7 +1,7 @@
 
 
 const Login = () => {
-    
+
     const handleFormData = (event) => {
         event.preventDefault();
         console.log(event.target.email.value);
