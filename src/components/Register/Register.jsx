@@ -1,12 +1,14 @@
 import { useRef, useState } from "react";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import app from '../../firebase/firebase.config';
 
+const auth = getAuth(app);
 
 const Register = () => {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [formData, setFormData] = useState([]);
 
     const inputRef = useRef(null);
     const handleUseRef = () => {
@@ -29,6 +31,15 @@ const Register = () => {
         const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
+
+        createUserWithEmailAndPassword(auth, email, password)
+        .then((result) => {
+            const loggedUser = result.user;
+            console.log(loggedUser);
+        })
+        .catch((error) => {
+            console.error(error);
+        })
     }
 
     return (
@@ -36,7 +47,7 @@ const Register = () => {
             <br /><br />
             <h3 className="text-2xl">Register</h3>
             <br />
-            <form onSubmit={handleForm} className="[&>*]:m-1 [&>*]:rounded-2xl [&>*]:border [&>*]:px-2 [&>*]:py-1 bg-green-100 w-6/12 mx-auto p-5 rounded-2xl">
+            <form onSubmit={handleForm} className="[&>*]:m-1 [&>*]:rounded-2xl [&>*]:border [&>*]:px-2 [&>*]:py-1 bg-green-200 w-6/12 mx-auto p-5 rounded-2xl">
                 <input onBlur={handleUseRef} ref={inputRef} type="text" name="name" id="name" placeholder="Type Your Name" />
                 <br />
                 <input onChange={handleEmail} type="email" name="email" id="email" placeholder="Type Your Email" />
