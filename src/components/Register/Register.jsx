@@ -6,6 +6,9 @@ const auth = getAuth(app);
 
 const Register = () => {
 
+    const [success, setSuccess] = useState("");
+    const [error, setError] = useState("");
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -28,6 +31,7 @@ const Register = () => {
 
     const handleForm = (event) => {
         event.preventDefault();
+        setSuccess("");
         const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
@@ -36,9 +40,13 @@ const Register = () => {
         .then((result) => {
             const loggedUser = result.user;
             console.log(loggedUser);
+            setError("");
+            setSuccess("User account created successfully");
+            event.target.reset();
         })
         .catch((error) => {
-            console.error(error);
+            console.error(error.message);
+            setError(error.message);
         })
     }
 
@@ -50,10 +58,12 @@ const Register = () => {
             <form onSubmit={handleForm} className="[&>*]:m-1 [&>*]:rounded-2xl [&>*]:border [&>*]:px-2 [&>*]:py-1 bg-green-200 w-6/12 mx-auto p-5 rounded-2xl">
                 <input onBlur={handleUseRef} ref={inputRef} type="text" name="name" id="name" placeholder="Type Your Name" />
                 <br />
-                <input onChange={handleEmail} type="email" name="email" id="email" placeholder="Type Your Email" />
+                <input onChange={handleEmail} type="email" name="email" id="email" placeholder="Type Your Email" required />
                 <br />
-                <input onBlur={handlePassword} type="password" name="password" id="password" placeholder="Type Your Password" />
+                <input onBlur={handlePassword} type="password" name="password" id="password" placeholder="Type Your Password" required />
                 <br />
+                <p className="text-green-500">{success}</p>
+                <p className="text-red-500">{error}</p>
                 <button className="font-semibold text-white bg-green-600" type="submit">Register</button>
             </form>
         </div>
