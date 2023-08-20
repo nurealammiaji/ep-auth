@@ -43,7 +43,7 @@ const Register = () => {
     }
 
     return (
-        <div>
+        <div className="text-center">
             <br /><br />
             <h3 className="text-2xl">Register</h3>
             <br />

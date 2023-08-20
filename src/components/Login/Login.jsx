@@ -9,7 +9,7 @@ const Login = () => {
     }
 
     return (
-        <div>
+        <div className="text-center">
             <br /><br />
             <h3 className="text-2xl">Login</h3>
             <br />
