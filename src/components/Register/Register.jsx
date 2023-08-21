@@ -32,9 +32,24 @@ const Register = () => {
     const handleForm = (event) => {
         event.preventDefault();
         setSuccess("");
+        setError("");
         const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
+
+        if (!/(?=(.*[a-z]){1,})/.test(password)) {
+            setError("Add at least 1 lowercase character");
+        }
+        else if (!/(?=(.*[A-Z]){1,})/.test(password)) {
+            setError("Add at least 1 uppercase character")
+        }
+        else if (!/(?=(.*[0-9]){2,})/.test(password)) {
+            setError("Add at least 1 number")
+        }
+        else if (!/(?=(.*[!@#$%^&*()\-__+.]){1,})/.test(password)) {
+            setError("Add at least 1 special character")
+        }
+        
 
         createUserWithEmailAndPassword(auth, email, password)
         .then((result) => {
@@ -49,6 +64,7 @@ const Register = () => {
             setError(error.message);
         })
     }
+    console.log(error.length);
 
     return (
         <div className="text-center">
@@ -62,8 +78,8 @@ const Register = () => {
                 <br />
                 <input onBlur={handlePassword} type="password" name="password" id="password" placeholder="Type Your Password" required />
                 <br />
-                <p className="text-green-500">{success}</p>
-                <p className="text-red-500">{error}</p>
+                {(success.length > 0) ? <p className="text-green-500">{success}</p> : ""}
+                {(error.length > 0 ) ? <p className="text-red-500">{error}</p> : ""}
                 <button className="font-semibold text-white bg-green-600" type="submit">Register</button>
             </form>
         </div>
