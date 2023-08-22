@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification, updateProfile } from "firebase/auth";
 import app from '../../firebase/firebase.config';
 
 const auth = getAuth(app);
@@ -49,7 +49,6 @@ const Register = () => {
         else if (!/(?=(.*[!@#$%^&*()\-__+.]){1,})/.test(password)) {
             setError("Add at least 1 special character")
         }
-        
 
         createUserWithEmailAndPassword(auth, email, password)
         .then((result) => {
@@ -58,13 +57,37 @@ const Register = () => {
             setError("");
             setSuccess("User account created successfully");
             event.target.reset();
+            profileUpdate(loggedUser);
+            emailVerification(loggedUser);
         })
         .catch((error) => {
             console.error(error.message);
             setError(error.message);
         })
+
+        const profileUpdate = (user) => {
+            updateProfile(user, {
+                displayName: name,
+            })
+            .then((result) => {
+                console.log(result);
+            })
+            .catch((error) => {
+                console.log(error.message);
+            })
+        }
+
+        const emailVerification = (user) => {
+        sendEmailVerification(user)
+        .then((result) => {
+            console.log(result);
+            alert("Please verify your email");
+        })
+        .catch((error) => {
+            console.log(error.message);
+        })
+        }
     }
-    console.log(error.length);
 
     return (
         <div className="text-center">

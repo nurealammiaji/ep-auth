@@ -1,11 +1,22 @@
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
+const auth = getAuth();
 
 const Login = () => {
 
     const handleFormData = (event) => {
         event.preventDefault();
-        console.log(event.target.email.value);
-        console.log(event.target.password.value);
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+
+        signInWithEmailAndPassword(auth, email, password)
+        .then((result) => {
+            const user = result.user;
+            console.log(user);
+        })
+        .catch((error) => {
+            console.log(error.message);
+        })
     }
 
     return (
