@@ -1,11 +1,21 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import app from "../../firebase/firebase.config";
+import { useState } from "react";
 
-const auth = getAuth();
+const auth = getAuth(app);
 
 const Login = () => {
 
+    const [success, setSuccess] = useState('');
+    const [error, setError] = useState('');
+
     const handleFormData = (event) => {
+
         event.preventDefault();
+
+        setSuccess('');
+        setError('');
+
         const email = event.target.email.value;
         const password = event.target.password.value;
 
@@ -13,9 +23,12 @@ const Login = () => {
         .then((result) => {
             const user = result.user;
             console.log(user);
+            setSuccess("Login successful")
+            event.target.reset();
         })
         .catch((error) => {
             console.log(error.message);
+            setError(error.message);
         })
     }
 
@@ -29,6 +42,12 @@ const Login = () => {
                 <br />
                 <input type="password" name="password" id="password" placeholder="Type Your Password" />
                 <br />
+                {
+                    (success.length > 0) ? <p className="text-green-500">{success}</p> : ''
+                }
+                {
+                    (error.length > 0) ? <p className="text-red-500">{error}</p> : ''
+                }
                 <button className="font-semibold text-white bg-green-600" type="submit">Login</button>
             </form>
         </div>

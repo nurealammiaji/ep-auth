@@ -11,6 +11,7 @@ const Navigation = () => {
                 <NavLink className={({isActive}) => isActive ? 'bg-green-600 text-white' : ''} to="/">Home</NavLink>
                 <NavLink className={({isActive}) => isActive ? 'bg-green-600 text-white' : ''} to="/register">Register</NavLink>
                 <NavLink className={({isActive}) => isActive ? 'bg-green-600 text-white' : ''} to="/login">Login</NavLink>
+                <NavLink className={({isActive}) => isActive ? 'bg-green-600 text-white' : ''} to="/users">Users</NavLink>
             </div>
         </nav>
     );
