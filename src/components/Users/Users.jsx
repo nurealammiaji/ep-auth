@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 const auth = getAuth(app);
 
 const Users = () => {
-    
+
     const user = auth.currentUser;
     const [loggedUser, setLoggedUser] = useState([]);
 
@@ -32,13 +32,13 @@ const Users = () => {
     })
    }
 
-    console.log(loggedUser);
+    console.log(typeof(loggedUser));
     const {displayName, email, photoURL, uid} = loggedUser;
 
     return (
         <div>
             <br /><br />
-            <div className="border w-6/12 mx-auto p-10 rounded-2xl bg-green-200">
+            <div className="border w-6/12 mx-auto p-5 rounded-2xl bg-green-200">
                 <div>
                     <img src={photoURL} alt="" />
                 </div>
